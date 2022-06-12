@@ -3,20 +3,21 @@
 
 #include <vector>
 #include <string>
-#include "Utility/Color.hpp"
+#include "Utility/vec3.hpp"
+// #include "Utility/Color.hpp"
 
 struct Image {
     Image(const int& width, const int& height);
     ~Image() = default;
 
-    Color GetColor(const int& x, const int& y) const;
-    void SetColor(const Color& color, const int& x, const int& y);
+    color GetColor(const int& x, const int& y) const;
+    void SetColor(const color& color, const int& x, const int& y);
     virtual void Export(const std::string& path) = 0;
 
 protected:
     int m_width;
     int m_height;
-    std::vector<Color> m_colors;
+    std::vector<color> m_colors;
 
 };
 
