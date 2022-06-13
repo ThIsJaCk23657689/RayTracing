@@ -3,6 +3,8 @@
 
 vec3::vec3() : x(0), y(0), z(0) {}
 
+vec3::vec3(const double& scalar) : x(scalar), y(scalar), z(scalar) {}
+
 vec3::vec3(const double& _x, const double& _y, const double& _z) : x(_x), y(_y), z(_z) {}
 
 vec3 vec3::operator-() const {

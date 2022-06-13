@@ -1,18 +1,39 @@
 #include <iostream>
+#include "Ray.hpp"
 #include "Image/BMP.hpp"
 
-int main(int argc, char** argv) {
-    const int image_width = 512;
-    const int image_height = 512;
+color RayColor(const Ray& r) {
+    vec3 unit_dir = normalize(r.m_direction);
+    auto t = 0.5 * (unit_dir.y + 1.0);
+    return lerp({1.0, 1.0, 1.0}, {0.5, 0.7, 1.0}, t);
+}
 
+int main(int argc, char** argv) {
+    // Image
+    const auto aspect_ratio = 16.0 / 9.0;
+    const int image_width = 1920;
+    const int image_height = static_cast<int>(image_width / aspect_ratio);
+
+    // Camera
+    auto viewport_height = 2.0;
+    auto viewport_width = aspect_ratio * viewport_height;
+    auto focal_length = 1.0;
+
+    auto origin = point3(0, 0, 0);
+    auto horizontal = vec3(viewport_width, 0, 0);
+    auto vertical = vec3(0, viewport_height, 0);
+    auto lower_left_corner = origin - horizontal / 2 - vertical / 2 - vec3(0, 0, focal_length);
+
+    // Renderer
     BMP my_image(image_width, image_height);
     for (int j = 0; j < image_height; j++) {
         for (int i = 0; i < image_width; i++) {
-            auto r = static_cast<float>(i) / static_cast<float>(image_width - 1);
-            auto g = static_cast<float>(j) / static_cast<float>(image_height - 1);
-            auto b = 0.25f;
+            auto u = static_cast<double>(i) / (image_width - 1);
+            auto v = static_cast<double>(j) / (image_height - 1);
+            Ray r(origin, lower_left_corner + u * horizontal + v * vertical - origin);
+            color pixel_color = RayColor(r);
 
-            my_image.SetColor({r, g, b}, i, j);
+            my_image.SetColor(pixel_color, i, j);
         }
     }
     my_image.Export("assets/images/result.bmp");

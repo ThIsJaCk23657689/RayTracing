@@ -12,6 +12,7 @@ struct vec3 {
     };
 
     vec3();
+    vec3(const double& scalar);
     vec3(const double& _x, const double& _y, const double& _z);
     ~vec3() = default;
 
@@ -72,6 +73,10 @@ inline vec3 cross(const vec3& u, const vec3& v) {
 
 inline vec3 normalize(vec3 v) {
     return v / v.length();
+}
+
+inline vec3 lerp(const vec3& start, const vec3& end, const double& t) {
+    return (1.0 - t) * start + t * end;
 }
 
 #endif
