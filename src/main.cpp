@@ -1,19 +1,15 @@
 #include <iostream>
+
 #include "Ray.hpp"
 #include "Image/BMP.hpp"
+#include "Entity/Sphere.hpp"
+#include "Entity/HittableList.hpp"
+#include "Utility/Helper.hpp"
 
-bool IsHitSphere(const point3& center, const double& radius, const Ray& r) {
-    vec3 oc = r.m_origin - center;
-    auto a = dot(r.m_direction, r.m_direction);
-    auto b = 2.0 * dot(oc, r.m_direction);
-    auto c = dot(oc, oc) - radius * radius;
-    auto discriminant = b * b - 4 * a * c;
-    return (discriminant > 0);
-}
-
-color RayColor(const Ray& r) {
-    if (IsHitSphere(point3(0, 0, -1), 0.5, r)) {
-        return color(1, 0, 0);
+color RayColor(const Ray& r, const Hittable& world) {
+    HitRecord record;
+    if (world.Hit(r, 0, Infinity, record)) {
+        return 0.5 * (record.m_normal + 1);
     }
 
     vec3 unit_dir = normalize(r.m_direction);
@@ -26,6 +22,11 @@ int main(int argc, char** argv) {
     const auto aspect_ratio = 16.0 / 9.0;
     const int image_width = 1920;
     const int image_height = static_cast<int>(image_width / aspect_ratio);
+
+    // World
+    HittableList world;
+    world.Add(std::make_shared<Sphere>(point3(0, 0, -1), 0.5));
+    world.Add(std::make_shared<Sphere>(point3(0, -100.5, -1), 100));
 
     // Camera
     auto viewport_height = 2.0;
@@ -44,7 +45,7 @@ int main(int argc, char** argv) {
             auto u = static_cast<double>(i) / (image_width - 1);
             auto v = static_cast<double>(j) / (image_height - 1);
             Ray r(origin, lower_left_corner + u * horizontal + v * vertical - origin);
-            color pixel_color = RayColor(r);
+            color pixel_color = RayColor(r, world);
 
             my_image.SetColor(pixel_color, i, j);
         }
