@@ -7,7 +7,7 @@
 #include "Image/Image.hpp"
 
 struct PPM : public Image {
-    PPM(const int& width, const int& height);
+    PPM(const unsigned int& width, const unsigned int& height);
     ~PPM() = default;
 
     void Export(const std::string& path) override;

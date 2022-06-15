@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <iostream>
+#include "Utility/Helper.hpp"
 
 struct vec3 {
     union {
@@ -77,6 +78,13 @@ inline vec3 normalize(vec3 v) {
 
 inline vec3 lerp(const vec3& start, const vec3& end, const double& t) {
     return (1.0 - t) * start + t * end;
+}
+
+inline vec3 clamp(const vec3& v, const double& min, const double& max) {
+    auto x = clamp(v.x, min, max);
+    auto y = clamp(v.y, min, max);
+    auto z = clamp(v.z, min, max);
+    return {x, y, z};
 }
 
 #endif

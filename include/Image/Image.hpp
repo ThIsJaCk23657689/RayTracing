@@ -7,7 +7,10 @@
 // #include "Utility/Color.hpp"
 
 struct Image {
-    Image(const int& width, const int& height);
+    unsigned int m_width;
+    unsigned int m_height;
+
+    Image(const unsigned int& width, const unsigned int& height);
     ~Image() = default;
 
     color GetColor(const int& x, const int& y) const;
@@ -15,8 +18,6 @@ struct Image {
     virtual void Export(const std::string& path) = 0;
 
 protected:
-    int m_width;
-    int m_height;
     std::vector<color> m_colors;
 
 };

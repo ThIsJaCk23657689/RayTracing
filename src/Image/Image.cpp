@@ -1,6 +1,6 @@
 #include "Image/Image.hpp"
 
-Image::Image(const int& width, const int& height) :
+Image::Image(const unsigned int& width, const unsigned int& height) :
     m_width(width), m_height(height), m_colors(std::vector<color>(width * height)) {
 }
 

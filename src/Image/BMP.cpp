@@ -1,23 +1,24 @@
 #include "Image/BMP.hpp"
 #include <iostream>
 
-BMP::BMP(const int& width, const int& height) : Image(width, height) {
+BMP::BMP(const unsigned int& width, const unsigned int& height) : Image(width, height) {
 }
 
 void BMP::Export(const std::string& path) {
-    std::ofstream output(path, std::ios::binary);
+    std::cout << "\nStarting export..." << std::endl;
+    std::ofstream output(path + ".bmp", std::ios::binary);
     if (!output.is_open()) {
         std::cout << "File could not be opened!" << std::endl;
         return;
     }
 
     unsigned char bmp_pad[3] = {0, 0, 0};
-    const int padding_amount = ((4 - (m_width * 3) % 4) % 4);
+    const auto padding_amount = ((4 - (m_width * 3) % 4) % 4);
 
-    const int file_header_size = 14;
-    const int info_header_size = 40;
-    const int image_size = m_width * m_height * 3 + padding_amount * m_height;
-    const int file_size = file_header_size + info_header_size + image_size;
+    const auto file_header_size = 14;
+    const auto info_header_size = 40;
+    const auto image_size = m_width * m_height * 3 + padding_amount * m_height;
+    const auto file_size = file_header_size + info_header_size + image_size;
 
     // File Header
     unsigned char file_header[file_header_size];
@@ -85,13 +86,13 @@ void BMP::Export(const std::string& path) {
     info_header[22] = 0;
     info_header[23] = 0;
 
-    // X pels per meter
+    // X pixels per meter
     info_header[24] = 0;
     info_header[25] = 0;
     info_header[26] = 0;
     info_header[27] = 0;
 
-    // Y pels per meter
+    // Y pixels per meter
     info_header[28] = 0;
     info_header[29] = 0;
     info_header[30] = 0;
@@ -116,9 +117,9 @@ void BMP::Export(const std::string& path) {
     for (int y = 0; y < m_height; y++) {
         std::cerr << "\rProgress: " << y << " " << std::flush;
         for (int x = 0; x < m_width; x++) {
-            unsigned char r = static_cast<unsigned char>(GetColor(x, y).r * 255.0f);
-            unsigned char g = static_cast<unsigned char>(GetColor(x, y).g * 255.0f);
-            unsigned char b = static_cast<unsigned char>(GetColor(x, y).b * 255.0f);
+            unsigned char r = static_cast<unsigned char>(GetColor(x, y).r * 256);
+            unsigned char g = static_cast<unsigned char>(GetColor(x, y).g * 256);
+            unsigned char b = static_cast<unsigned char>(GetColor(x, y).b * 256);
 
             unsigned char color[] = {b, g, r};
             output.write(reinterpret_cast<const char*>(color), 3);

@@ -7,7 +7,7 @@
 #include "Image/Image.hpp"
 
 struct BMP : public Image {
-    BMP(const int& width, const int& height);
+    BMP(const unsigned int& width, const unsigned int& height);
     ~BMP() = default;
 
     void Export(const std::string& path) override;
