@@ -30,7 +30,7 @@ void Renderer::Render(Image& image, const Camera& camera, const HittableList& wo
 color Renderer::RayColor(const Ray& r, const HittableList& world, unsigned int depth) {
     HitRecord record;
 
-    if (depth <= 0) return color(0, 0, 0);
+    if (depth <= 0) return color(0.0, 0.0, 0.0);
 
     if (world.Hit(r, 0, Infinity, record)) {
         point3 target = record.m_hit_point + record.m_normal + random_in_unit_sphere();
