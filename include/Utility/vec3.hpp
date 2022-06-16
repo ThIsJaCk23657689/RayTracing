@@ -27,6 +27,13 @@ struct vec3 {
     double length() const;
     double length_squared() const;
 
+    inline static vec3 random() {
+        return { random_double(), random_double(), random_double() };
+    }
+
+    inline static vec3 random(const double& min, const double& max) {
+        return { random_double(min, max), random_double(min, max), random_double(min, max) };
+    }
 };
 
 // Type aliases for vec3
@@ -86,5 +93,7 @@ inline vec3 clamp(const vec3& v, const double& min, const double& max) {
     auto z = clamp(v.z, min, max);
     return {x, y, z};
 }
+
+vec3 random_in_unit_sphere();
 
 #endif

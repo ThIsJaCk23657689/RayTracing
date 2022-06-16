@@ -10,9 +10,10 @@
 int main(int argc, char** argv) {
     // Configure settings
     const auto aspect_ratio = 16.0 / 9.0;
-    const unsigned int image_width = 1920;
+    const unsigned int image_width = 400;
     const unsigned int image_height = static_cast<int>(image_width / aspect_ratio);
     const unsigned int samples_per_pixel = 100;
+    const unsigned int max_depth = 50;
 
     // World
     HittableList world;
@@ -24,7 +25,7 @@ int main(int argc, char** argv) {
 
     // Renderer
     BMP my_image(image_width, image_height);
-    Renderer::Render(my_image, camera, world, samples_per_pixel);
+    Renderer::Render(my_image, camera, world, samples_per_pixel, max_depth);
 
     std::cout << "Press any key to continue..." << std::endl;
     std::cin.get();

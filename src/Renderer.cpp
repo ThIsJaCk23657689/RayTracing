@@ -2,8 +2,8 @@
 #include "Utility/Helper.hpp"
 #include <iostream>
 
-void Renderer::Render(Image& image, const Camera& camera, const HittableList& world, const unsigned int& samples_per_pixel) {
-    std::cout << "Starting render..." << std::endl;
+void Renderer::Render(Image& image, const Camera& camera, const HittableList& world, const unsigned int& samples_per_pixel, unsigned int depth) {
+    std::cout << "\nStarting render..." << std::endl;
     for (int j = 0; j < image.m_height; j++) {
         std::cerr << "\rProgress: " << j << " " << std::flush;
         for (int i = 0; i < image.m_width; i++) {
@@ -13,7 +13,7 @@ void Renderer::Render(Image& image, const Camera& camera, const HittableList& wo
                 auto v = (j + random_double()) / (image.m_height - 1);
 
                 Ray r = camera.GetRay(u, v);
-                pixel_color += RayColor(r, world);
+                pixel_color += RayColor(r, world, depth);
             }
 
             // Antialiasing
@@ -27,10 +27,14 @@ void Renderer::Render(Image& image, const Camera& camera, const HittableList& wo
     image.Export("assets/images/result");
 }
 
-color Renderer::RayColor(const Ray& r, const HittableList& world) {
+color Renderer::RayColor(const Ray& r, const HittableList& world, unsigned int depth) {
     HitRecord record;
+
+    if (depth <= 0) return color(0, 0, 0);
+
     if (world.Hit(r, 0, Infinity, record)) {
-        return 0.5 * (record.m_normal + 1);
+        point3 target = record.m_hit_point + record.m_normal + random_in_unit_sphere();
+        return 0.5 * RayColor(Ray(record.m_hit_point, target - record.m_hit_point), world, depth - 1);
     }
 
     vec3 unit_dir = normalize(r.m_direction);
