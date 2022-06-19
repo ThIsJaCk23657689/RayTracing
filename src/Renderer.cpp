@@ -16,9 +16,11 @@ void Renderer::Render(Image& image, const Camera& camera, const HittableList& wo
                 pixel_color += RayColor(r, world, depth);
             }
 
-            // Antialiasing
+            // Antialiasing and Gamma Correction
             auto scale = 1.0 / samples_per_pixel;
-            pixel_color *= scale;
+            pixel_color.r = std::sqrt(pixel_color.r * scale);
+            pixel_color.g = std::sqrt(pixel_color.g * scale);
+            pixel_color.b = std::sqrt(pixel_color.b * scale);
             pixel_color = clamp(pixel_color, 0.0, 0.999);
 
             image.SetColor(pixel_color, i, j);
@@ -30,10 +32,11 @@ void Renderer::Render(Image& image, const Camera& camera, const HittableList& wo
 color Renderer::RayColor(const Ray& r, const HittableList& world, unsigned int depth) {
     HitRecord record;
 
-    if (depth <= 0) return color(0.0, 0.0, 0.0);
+    // If we've exceeded the ray bounce limit, no more light is gathered.
+    if (depth <= 0) return { 0.0, 0.0, 0.0 };
 
-    if (world.Hit(r, 0, Infinity, record)) {
-        point3 target = record.m_hit_point + record.m_normal + random_in_unit_sphere();
+    if (world.Hit(r, 0.001, Infinity, record)) {
+        point3 target = record.m_hit_point + random_in_hemisphere(record.m_normal);
         return 0.5 * RayColor(Ray(record.m_hit_point, target - record.m_hit_point), world, depth - 1);
     }
 
