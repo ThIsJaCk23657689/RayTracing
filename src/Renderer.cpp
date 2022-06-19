@@ -4,8 +4,28 @@
 
 void Renderer::Render(Image& image, const Camera& camera, const HittableList& world, const unsigned int& samples_per_pixel, unsigned int depth) {
     std::cout << "\nStarting render..." << std::endl;
+
+    const int progress_bar_length = 70;
+    int current_progress_bar_count = 0;
+    float progress = 0.0f;
     for (int j = 0; j < image.m_height; j++) {
-        std::cerr << "\rProgress: " << j << " " << std::flush;
+
+        progress = static_cast<float>(j + 1) / static_cast<float>(image.m_height);
+        current_progress_bar_count = static_cast<int>(progress_bar_length * progress);
+        std::cout << "[";
+        for (int n = 0; n < progress_bar_length; n++) {
+            if (n == current_progress_bar_count) {
+                std::cout << ">";
+                continue;
+            }
+            if (n < current_progress_bar_count) {
+                std::cout << "=";
+            } else {
+                std::cout << " ";
+            }
+        }
+        std::cout << "] " << static_cast<int>(100.0f * progress) << "%\r" << std::flush;
+
         for (int i = 0; i < image.m_width; i++) {
             color pixel_color(0);
             for (int s = 0; s < samples_per_pixel; s++) {
