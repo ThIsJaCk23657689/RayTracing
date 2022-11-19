@@ -1,12 +1,6 @@
 #include "Entity/Sphere.hpp"
 #include <cmath>
 
-Sphere::Sphere() : m_center(0, 0, 0), m_radius(1.0) {
-}
-
-Sphere::Sphere(const point3& center, const double& radius) : m_center(center), m_radius(radius) {
-}
-
 bool Sphere::Hit(const Ray& r, const double& t_min, const double& t_max, HitRecord& record) const {
     vec3 oc = r.m_origin - m_center;
     auto a = r.m_direction.length_squared();
@@ -31,6 +25,7 @@ bool Sphere::Hit(const Ray& r, const double& t_min, const double& t_max, HitReco
     record.m_hit_point = r.At(record.m_t);
     vec3 outward_normal = (record.m_hit_point - m_center) / m_radius;
     record.SetFaceNormal(r, outward_normal);
+    record.m_material_ptr = m_material_ptr;
 
     return true;
 }

@@ -46,3 +46,9 @@ double vec3::length() const {
 double vec3::length_squared() const {
     return x * x + y * y + z * z;
 }
+
+bool vec3::near_zero() const {
+    // Return true if the vector is close to zero in all dimensions.
+    const auto s = 1e-8;
+    return (fabs(x) < s) && (fabs(y) < s) && (fabs(z) < s);
+}

@@ -43,6 +43,7 @@ target_include_directories(${MY_EXECUTABLE} PRIVATE "include")
 file(GLOB MY_SOURCE CONFIGURE_DEPENDS
     "src/Entity/*.cpp"
     "src/Image/*.cpp"
+    "src/Material/*.cpp"
     "src/Utility/*.cpp"
     "src/*.cpp"
 )

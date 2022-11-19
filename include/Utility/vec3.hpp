@@ -26,6 +26,7 @@ struct vec3 {
     vec3& operator/=(const double& t);
     double length() const;
     double length_squared() const;
+    bool near_zero() const;
 
     inline static vec3 random() {
         return { random_double(), random_double(), random_double() };
@@ -115,5 +116,10 @@ inline vec3 random_in_hemisphere(const vec3& normal) {
         return -in_unit_sphere;
     }
 }
+
+inline vec3 reflect(const vec3& v, const vec3& n) {
+    return v - 2 * dot(v, n) * n;
+}
+
 
 #endif

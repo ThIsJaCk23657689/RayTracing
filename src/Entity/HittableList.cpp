@@ -2,7 +2,7 @@
 
 HittableList::HittableList() {}
 
-HittableList::HittableList(const std::shared_ptr<Hittable>& object) {
+HittableList::HittableList(std::shared_ptr<Hittable> object) {
     Add(object);
 }
 
@@ -10,7 +10,7 @@ void HittableList::Clear() {
     m_objects.clear();
 }
 
-void HittableList::Add(const std::shared_ptr<Hittable>& object) {
+void HittableList::Add(std::shared_ptr<Hittable> object) {
     m_objects.push_back(object);
 }
 

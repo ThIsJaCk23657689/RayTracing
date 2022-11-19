@@ -56,8 +56,12 @@ color Renderer::RayColor(const Ray& r, const HittableList& world, unsigned int d
     if (depth <= 0) return { 0.0, 0.0, 0.0 };
 
     if (world.Hit(r, 0.001, Infinity, record)) {
-        point3 target = record.m_hit_point + random_in_hemisphere(record.m_normal);
-        return 0.5 * RayColor(Ray(record.m_hit_point, target - record.m_hit_point), world, depth - 1);
+        Ray scattered;
+        color attenuation;
+        if (record.m_material_ptr->Scatter(r, record, attenuation, scattered)) {
+            return attenuation * RayColor(scattered, world, depth - 1);
+        }
+        return { 0, 0, 0 };
     }
 
     vec3 unit_dir = normalize(r.m_direction);
