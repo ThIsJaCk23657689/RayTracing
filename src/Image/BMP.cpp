@@ -1,5 +1,6 @@
 #include "Image/BMP.hpp"
 #include "Utility/Interval.hpp"
+#include "Utility/Console.hpp"
 #include <iostream>
 
 inline double linear_to_gamma(const double& input) {
@@ -17,10 +18,10 @@ BMP::BMP(const unsigned int& width, const unsigned int& height) : Image(width, h
 }
 
 void BMP::Export(const std::string& path) {
-    std::cout << "\nStarting export..." << std::endl;
+    Console::Print("\nStarting export...");
     std::ofstream output(path + ".bmp", std::ios::binary);
     if (!output.is_open()) {
-        std::cout << "File could not be opened!" << std::endl;
+        Console::Print("Failed to open file.");
         return;
     }
 
@@ -144,5 +145,6 @@ void BMP::Export(const std::string& path) {
     }
 
     output.close();
-    std::cout << "\nBMP file save successfully." << std::endl;
+    Console::Print("\nBMP file save successfully.");
+    Console::Print("File path: %s.bmp", path.c_str());
 }

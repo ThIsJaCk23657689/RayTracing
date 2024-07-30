@@ -1,9 +1,13 @@
 #include "Renderer.hpp"
 #include "Utility/Helper.hpp"
 #include <iostream>
+#include "Utility/Console.hpp"
 
 void Renderer::Render(Image& image, const Camera& camera, const HittableList& world, const unsigned int& samples_per_pixel, unsigned int depth) {
-    std::cout << "\nStarting render..." << std::endl;
+    Console::Print("\nStarting render...");
+    Console::Print("Image size: ( %d, %d )", image.m_width, image.m_height);
+    Console::Print("Samples per pixel: %d", render_desc.samples_per_pixel);
+    Console::Print("Max depth: %d", render_desc.depth);
 
     const int progress_bar_length = 70;
     int current_progress_bar_count = 0;
