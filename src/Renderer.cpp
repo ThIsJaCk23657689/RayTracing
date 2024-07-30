@@ -50,10 +50,10 @@ void Renderer::Render(Image& image, const Camera& camera, const HittableList& wo
 }
 
 color Renderer::RayColor(const Ray& r, const HittableList& world, unsigned int depth) {
-    HitRecord record;
-
     // If we've exceeded the ray bounce limit, no more light is gathered.
     if (depth <= 0) return { 0.0, 0.0, 0.0 };
+
+    HitRecord record;
 
     if (world.Hit(r, Interval(0, Infinity), record)) {
         Ray scattered;

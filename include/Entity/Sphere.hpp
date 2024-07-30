@@ -10,8 +10,12 @@
 class Sphere : public Hittable {
 public:
     Sphere() = default;
-    Sphere(const point3& center, const double& radius, std::shared_ptr<Material> material)
-        : m_center(center), m_radius(radius), m_material_ptr(std::move(material)) {}
+    Sphere(const point3& center, const double& radius, std::shared_ptr<Material> material) :
+        m_center(center), 
+        m_radius(std::fmax(0, radius)), 
+        m_material_ptr(material) 
+    {
+    }
 
     bool Hit(const Ray& r, const Interval& ray_t, HitRecord& record) const override;
 
