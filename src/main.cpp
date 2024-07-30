@@ -50,7 +50,7 @@ int main(int argc, char** argv) {
     // Renderer
     main_timer.Start();
     BMP my_image(image_width, image_height);
-    Renderer::Render(my_image, camera, world, samples_per_pixel, max_depth);
+    Renderer::Render(my_image, {camera, world, samples_per_pixel, max_depth});
     main_timer.Print("Render image completed");
 
     std::cout << "Press any key to continue..." << std::endl;

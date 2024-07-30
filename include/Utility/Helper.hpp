@@ -36,4 +36,9 @@ inline T clamp(const T& x, const T& min, const T& max) {
     if (x > max) return max;
     return x;
 }
+
+inline double linear_to_gamma(const double& input) {
+    if (input > 0) return std::sqrt(input);
+    return 0;
+}
 #endif
