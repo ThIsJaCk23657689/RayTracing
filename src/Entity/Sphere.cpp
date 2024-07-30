@@ -1,7 +1,7 @@
 #include "Entity/Sphere.hpp"
 #include <cmath>
 
-bool Sphere::Hit(const Ray& r, const double& t_min, const double& t_max, HitRecord& record) const {
+bool Sphere::Hit(const Ray& r, const Interval& ray_t, HitRecord& record) const {
     vec3 oc = r.m_origin - m_center;
     auto a = r.m_direction.length_squared();
     auto half_b = dot(oc, r.m_direction);
@@ -14,9 +14,9 @@ bool Sphere::Hit(const Ray& r, const double& t_min, const double& t_max, HitReco
 
     // Find the nearest root that lies in the acceptable range.
     auto root = (-half_b - sqrt_d) / a;
-    if (root < t_min || root > t_max) {
+    if (!ray_t.Surrounds(root)) {
         root = (-half_b + sqrt_d) / a;
-        if (root < t_min || root > t_max) {
+        if (!ray_t.Surrounds(root)) {
             return false;
         }
     }

@@ -3,6 +3,7 @@
 
 #include "Ray.hpp"
 #include "Material/Material.hpp"
+#include "Utility/Interval.hpp"
 #include <memory>
 
 class Material;
@@ -21,7 +22,7 @@ struct HitRecord {
 };
 
 struct Hittable {
-    virtual bool Hit(const Ray& r, const double& t_min, const double& t_max, HitRecord& record) const = 0;
+    virtual bool Hit(const Ray& r, const Interval& ray_t, HitRecord& record) const = 0;
 };
 
 #endif

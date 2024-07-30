@@ -14,7 +14,7 @@ struct HittableList : public Hittable {
 
     void Clear();
     void Add(std::shared_ptr<Hittable> object);
-    bool Hit(const Ray& r, const double& t_min, const double& t_max, HitRecord& record) const override;
+    bool Hit(const Ray& r, const Interval& ray_t, HitRecord& record) const override;
 };
 
 #endif

@@ -55,7 +55,7 @@ color Renderer::RayColor(const Ray& r, const HittableList& world, unsigned int d
     // If we've exceeded the ray bounce limit, no more light is gathered.
     if (depth <= 0) return { 0.0, 0.0, 0.0 };
 
-    if (world.Hit(r, 0.001, Infinity, record)) {
+    if (world.Hit(r, Interval(0, Infinity), record)) {
         Ray scattered;
         color attenuation;
         if (record.m_material_ptr->Scatter(r, record, attenuation, scattered)) {

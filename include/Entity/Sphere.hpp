@@ -13,7 +13,7 @@ public:
     Sphere(const point3& center, const double& radius, std::shared_ptr<Material> material)
         : m_center(center), m_radius(radius), m_material_ptr(std::move(material)) {}
 
-    bool Hit(const Ray& r, const double& t_min, const double& t_max, HitRecord& record) const override;
+    bool Hit(const Ray& r, const Interval& ray_t, HitRecord& record) const override;
 
     point3 m_center;
     double m_radius;
