@@ -14,7 +14,7 @@ void HittableList::Add(std::shared_ptr<Hittable> object) {
     m_objects.push_back(object);
 }
 
-bool HittableList::Hit(const Ray& r, const Interval& ray_t, HitRecord& record) const {
+bool HittableList::Hit(const Ray& r, const Interval<double>& ray_t, HitRecord& record) const {
     HitRecord temp_record;
     bool is_hit_anything = false;
     auto closest_so_far = ray_t.m_max;

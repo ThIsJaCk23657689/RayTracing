@@ -1,7 +1,8 @@
 #include "Utility/ArgumentParser.hpp"
+#include "Utility/Helper.hpp"
 #include <stdexcept>
 
-unsigned int ArgumentParser::image_width = 400;
+unsigned int ArgumentParser::image_width = 1920;
 unsigned int ArgumentParser::samples_per_pixel = 100;
 unsigned int ArgumentParser::max_depth = 50;
 

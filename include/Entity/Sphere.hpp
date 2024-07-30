@@ -2,10 +2,6 @@
 #define SPHERE_HPP
 
 #include "Entity/Hittable.hpp"
-#include "Utility/vec3.hpp"
-#include "Material/Material.hpp"
-#include <memory>
-#include <utility>
 
 class Sphere : public Hittable {
 public:
@@ -17,7 +13,7 @@ public:
     {
     }
 
-    bool Hit(const Ray& r, const Interval& ray_t, HitRecord& record) const override;
+    bool Hit(const Ray& r, const Interval<double>& ray_t, HitRecord& record) const override;
 
     point3 m_center;
     double m_radius;

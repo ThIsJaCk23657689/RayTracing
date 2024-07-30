@@ -1,11 +1,9 @@
-#include <iostream>
-
+#include "Utility/Helper.hpp"
 #include "Camera.hpp"
+#include "Renderer.hpp"
+#include "Image/BMP.hpp"
 #include "Entity/HittableList.hpp"
 #include "Entity/Sphere.hpp"
-#include "Image/BMP.hpp"
-#include "Ray.hpp"
-#include "Renderer.hpp"
 #include "Utility/Timer.hpp"
 #include "Utility/ArgumentParser.hpp"
 #include "Material/Lambertian.hpp"

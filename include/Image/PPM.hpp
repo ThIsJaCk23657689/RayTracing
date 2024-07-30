@@ -1,9 +1,6 @@
 #ifndef PPM_HPP
 #define PPM_HPP
 
-#include <string>
-#include <fstream>
-#include <cstddef>
 #include "Image/Image.hpp"
 
 struct PPM : public Image {

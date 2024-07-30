@@ -1,7 +1,6 @@
 #include "Entity/Sphere.hpp"
-#include <cmath>
 
-bool Sphere::Hit(const Ray& r, const Interval& ray_t, HitRecord& record) const {
+bool Sphere::Hit(const Ray& r, const Interval<double>& ray_t, HitRecord& record) const {
     vec3 oc = m_center - r.m_origin;
     auto a = r.m_direction.length_squared();
     auto half_b = dot(oc, r.m_direction);

@@ -1,9 +1,6 @@
 #ifndef ARGUMENTPARSER_HPP
 #define ARGUMENTPARSER_HPP
 
-#include <vector>
-#include <string>
-
 namespace ArgumentParser {
     void Parse(const int& argc, char** argv);
 

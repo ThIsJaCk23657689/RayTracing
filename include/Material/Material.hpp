@@ -1,8 +1,8 @@
 #ifndef MATERIAL_HPP
 #define MATERIAL_HPP
 
+#include "Utility/Helper.hpp"
 #include "Ray.hpp"
-#include "Entity/Hittable.hpp"
 
 struct HitRecord;
 

@@ -1,5 +1,6 @@
 #include "Image/PPM.hpp"
 #include <iostream>
+#include <fstream>
 
 PPM::PPM(const unsigned int& width, const unsigned int& height) : Image(width, height) {
 }

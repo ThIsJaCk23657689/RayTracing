@@ -1,10 +1,7 @@
 #ifndef IMAGE_HPP
 #define IMAGE_HPP
 
-#include <vector>
-#include <string>
-#include "Utility/vec3.hpp"
-// #include "Utility/Color.hpp"
+#include "Utility/Helper.hpp"
 
 struct Image {
     unsigned int m_width;

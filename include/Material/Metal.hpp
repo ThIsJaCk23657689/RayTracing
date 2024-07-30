@@ -2,7 +2,6 @@
 #define METAL_HPP
 
 #include "Material/Material.hpp"
-#include "Utility/vec3.hpp"
 
 class Metal : public Material {
 public:

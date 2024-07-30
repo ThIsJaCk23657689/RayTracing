@@ -1,18 +1,7 @@
 #include "Image/BMP.hpp"
-#include "Utility/Interval.hpp"
 #include "Utility/Console.hpp"
 #include <iostream>
-
-inline double linear_to_gamma(const double& input) {
-    if (input > 0) 
-        return std::sqrt(input);
-
-    return 0;
-}
-
-inline color linear_to_gamma(const color& linear) { 
-    return color(linear_to_gamma(linear.r), linear_to_gamma(linear.g), linear_to_gamma(linear.b));
-}
+#include <fstream>
 
 BMP::BMP(const unsigned int& width, const unsigned int& height) : Image(width, height) {
 }
@@ -131,12 +120,9 @@ void BMP::Export(const std::string& path) {
         std::cerr << "\rProgress: " << y << " " << std::flush;
         for (int x = 0; x < m_width; x++) {
             auto pixel_color = GetColor(x, y);
-            auto gamma_corrected = linear_to_gamma(pixel_color);
-            
-            static const Interval intensity(0.000, 0.999);
-            unsigned char r = static_cast<unsigned char>(intensity.Clamp(gamma_corrected.r) * 256);
-            unsigned char g = static_cast<unsigned char>(intensity.Clamp(gamma_corrected.g) * 256);
-            unsigned char b = static_cast<unsigned char>(intensity.Clamp(gamma_corrected.b) * 256);
+            unsigned char r = static_cast<unsigned char>(pixel_color.r * 256);
+            unsigned char g = static_cast<unsigned char>(pixel_color.g * 256);
+            unsigned char b = static_cast<unsigned char>(pixel_color.b * 256);
 
             unsigned char color[] = {b, g, r};
             output.write(reinterpret_cast<const char*>(color), 3);

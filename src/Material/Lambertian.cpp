@@ -1,4 +1,5 @@
 #include "Material/Lambertian.hpp"
+#include "Entity/HittableList.hpp"
 
 bool Lambertian::Scatter(const Ray& r, const HitRecord& record, color& attenuation, Ray& scattered) const {
     auto scatter_direction = record.m_normal + random_unit_vector();
