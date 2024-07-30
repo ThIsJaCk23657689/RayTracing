@@ -6,9 +6,12 @@
 
 class Metal : public Material {
 public:
-    Metal(const color& a) : m_albedo(a) {}
+    Metal(const color& albdeo) : m_albedo(albdeo) {}
     virtual bool Scatter(const Ray& r, const HitRecord& record, color& attenuation, Ray& scattered) const override;
+    
+private:
     color m_albedo;
+
 };
 
 #endif

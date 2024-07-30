@@ -5,8 +5,10 @@
 
 class Lambertian : public Material {
 public:
-    Lambertian(const color& a) : m_albedo(a) {}
+    Lambertian(const color& albedo) : m_albedo(albedo) {}
     bool Scatter(const Ray& r, const HitRecord& record, color& attenuation, Ray& scattered) const override;
+    
+private:
     color m_albedo;
 };
 
