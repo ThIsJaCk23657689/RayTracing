@@ -2,20 +2,20 @@
 #include <cmath>
 
 bool Sphere::Hit(const Ray& r, const Interval& ray_t, HitRecord& record) const {
-    vec3 oc = r.m_origin - m_center;
+    vec3 oc = m_center - r.m_origin;
     auto a = r.m_direction.length_squared();
     auto half_b = dot(oc, r.m_direction);
     auto c = oc.length_squared() - m_radius * m_radius;
-
     auto discriminant = half_b * half_b - a * c;
+
     if (discriminant < 0) return false;
 
     auto sqrt_d = std::sqrt(discriminant);
 
     // Find the nearest root that lies in the acceptable range.
-    auto root = (-half_b - sqrt_d) / a;
+    auto root = (half_b - sqrt_d) / a;
     if (!ray_t.Surrounds(root)) {
-        root = (-half_b + sqrt_d) / a;
+        root = (half_b + sqrt_d) / a;
         if (!ray_t.Surrounds(root)) {
             return false;
         }
