@@ -2,22 +2,31 @@
 #define INTERVAL_HPP
 #include "Utility/Helper.hpp"
 
-class Interval
-{
-public:
+template< typename T >
+struct Interval {
     Interval() : m_min( +Infinity ), m_max( -Infinity ) {}
-    Interval( double min, double max ) : m_min( min ), m_max( max ) {}
+    Interval( T min, T max ) : m_min( min ), m_max( max ) {}
 
-    double Size() const { return m_max - m_min; }
-    double Clamp(double x) const { return clamp(x, m_min, m_max); }
-    bool Contains( double x ) const { return x >= m_min && x <= m_max; }
-    bool Surrounds( double x ) const { return x > m_min && x < m_max; }
+    T Size() const { return m_max - m_min; }
+    T Clamp( T x ) const { return clamp(x, m_min, m_max); }
+    bool Contains( T x ) const { return x >= m_min && x <= m_max; }
+    bool Surrounds( T x ) const { return x > m_min && x < m_max; }
 
-    double m_min;
-    double m_max;
+    T m_min;
+    T m_max;
 
-    static const Interval Empty;
-    static const Interval Universe;
+    static const Interval< T > Empty;
+    static const Interval< T > Universe;
+
+    static const T Infinity;
 };
 
+template<typename T>
+const T Interval<T>::Infinity = std::numeric_limits<T>::infinity();
+
+template<typename T>
+const Interval<T> Interval<T>::Empty = Interval<T>(+Infinity, -Infinity);
+
+template<typename T>
+const Interval<T> Interval<T>::Universe = Interval<T>(-Infinity, +Infinity);
 #endif

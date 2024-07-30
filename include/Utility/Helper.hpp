@@ -30,4 +30,10 @@ inline double random_double(const double& min, const double& max) {
     return min + (max - min) * random_double();
 }
 
+template< typename T >
+inline T clamp(const T& x, const T& min, const T& max) {
+    if (x < min) return min;
+    if (x > max) return max;
+    return x;
+}
 #endif
