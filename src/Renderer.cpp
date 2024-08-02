@@ -65,10 +65,7 @@ void Renderer::RenderRow(Image& image, const RenderDesc& render_desc, int32_t cu
 
         // for each sample per pixel
         for (int s = 0; s < render_desc.samples_per_pixel; s++) {
-            auto u = (i + random_double()) / (image.m_width - 1);
-            auto v = (current_row + random_double()) / (image.m_height - 1);
-
-            Ray r = render_desc.camera.GetRay(u, v);
+            Ray r = render_desc.camera.GetRay(i, current_row);
             pixel_color += RayColor(r, render_desc.world, render_desc.depth);
         }
 

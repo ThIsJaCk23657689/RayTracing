@@ -24,7 +24,7 @@ int main(int argc, char** argv) {
     // Configure settings
     const auto aspect_ratio = 16.0 / 9.0;
     const unsigned int image_width = ArgumentParser::image_width;
-    const unsigned int image_height = static_cast<int>(image_width / aspect_ratio);
+    const unsigned int image_height = std::max(static_cast<int>(image_width / aspect_ratio), 1);
     const unsigned int samples_per_pixel = ArgumentParser::samples_per_pixel;
     const unsigned int max_depth = ArgumentParser::max_depth;
 
@@ -32,18 +32,20 @@ int main(int argc, char** argv) {
     HittableList world;
 
     // Material
-    auto material_ground = std::make_shared<Lambertian>(color(0.8, 0.8, 0.0));
+    auto material_ground = std::make_shared<Lambertian>(color(0.5, 0.5, 0.5));
     auto material_center = std::make_shared<Lambertian>(color(0.1, 0.2, 0.5));
-    auto material_left = std::make_shared<Metal>(color(0.8, 0.8, 0.8));
-    auto material_right = std::make_shared<Metal>(color(0.8, 0.6, 0.2));
+    auto material_left = std::make_shared<Metal>(color(0.1, 0.8, 0.8));
+    auto material_right = std::make_shared<Metal>(color(0.658, 0.958, 0.776));
+    auto material_small = std::make_shared<Lambertian>(color(0.9558, 0.26, 0.7522));
 
-    world.Add(std::make_shared<Sphere>(point3( 0.0, -100.5, -1.0), 100.0, material_ground));
-    world.Add(std::make_shared<Sphere>(point3( 0.0,    0.0, -1.2),   0.5, material_center));
-    world.Add(std::make_shared<Sphere>(point3(-1.0,    0.0, -1.0),   0.5, material_left));
-    world.Add(std::make_shared<Sphere>(point3( 1.0,    0.0, -1.0),   0.5, material_right));
+    world.Add(std::make_shared<Sphere>(point3( 0.0,  -100.5, -1.0), 100.0, material_ground));
+    world.Add(std::make_shared<Sphere>(point3( 0.0,     0.0, -1.2),   0.5, material_center));
+    world.Add(std::make_shared<Sphere>(point3(-1.5,     0.0, -2.0),   0.5, material_left));
+    world.Add(std::make_shared<Sphere>(point3( 1.5,     0.0, -1.9),   0.5, material_right));
+    world.Add(std::make_shared<Sphere>(point3( 0.2,     0.0, -0.5),   0.1, material_small));
 
     // Camera
-    Camera camera(aspect_ratio);
+    Camera camera(image_width, image_height);
 
     // Renderer
     main_timer.Start();

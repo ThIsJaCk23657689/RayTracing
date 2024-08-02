@@ -7,7 +7,7 @@ Maybe I can learn more fantasy things in this program.
 Only C++17 and CMake, let's all.
 
 #### support multi-threading.
-generate 1920x1080 image, 100 samples per pixel, and 50 depth, it takes about 5 minute.
+generate 1920x1080 image, 100 samples per pixel, and 50 depth, it takes about 5 minute (it takes 16 minute for single thread).
 
 ---
 Author: ThIsJaCk
