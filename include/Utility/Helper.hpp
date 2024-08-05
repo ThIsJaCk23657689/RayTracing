@@ -25,6 +25,7 @@ inline T clamp(const T& x, const T& min, const T& max) {
 }
 
 inline double linear_to_gamma(const double& input) {
+    // pow(input, 1/gamma) where gamma = 2.2. there we simply take the square root.
     if (input > 0) return std::sqrt(input);
     return 0;
 }
