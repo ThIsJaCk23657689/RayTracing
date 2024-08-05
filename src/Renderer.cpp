@@ -91,7 +91,7 @@ color Renderer::RayColor(const Ray& r, const HittableList& world, unsigned int d
 
     HitRecord record;
 
-    if (world.Hit(r, Interval<double>(0, Interval<double>::Infinity), record)) {
+    if (world.Hit(r, Interval<double>(0.001, Interval<double>::Infinity), record)) {
         Ray scattered;
         color attenuation;
         if (record.m_material_ptr->Scatter(r, record, attenuation, scattered)) {
