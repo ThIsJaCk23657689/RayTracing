@@ -2,7 +2,7 @@
 #include "Utility/Helper.hpp"
 #include <stdexcept>
 
-unsigned int ArgumentParser::image_width = 400;
+unsigned int ArgumentParser::image_width = 800;
 unsigned int ArgumentParser::samples_per_pixel = 100;
 unsigned int ArgumentParser::max_depth = 50;
 
