@@ -13,6 +13,8 @@ private:
     // the refreactive index of the enclosing media.
     double m_refractive_index;
 
+    static double Reflectance(double cosine, double refraction_index);
+
 };
 
 #endif

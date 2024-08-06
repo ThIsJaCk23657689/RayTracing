@@ -115,10 +115,13 @@ inline vec3 random_in_hemisphere(const vec3& normal) {
     }
 }
 
+// make sure normal is an unit vector
 inline vec3 reflect(const vec3& v, const vec3& n) {
     return v - 2 * dot(v, n) * n;
 }
 
+// make sure uv and n are unit vector
+// etai_over_etat = refractive index ratio which is etai/etat
 inline vec3 refract(const vec3& uv, const vec3& n, double etai_over_etat) {
     auto cos_theta = std::fmin(dot(-uv, n), 1.0);
     vec3 r_out_perp = etai_over_etat * (uv + cos_theta * n);
