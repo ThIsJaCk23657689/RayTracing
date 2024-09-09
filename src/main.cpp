@@ -46,7 +46,14 @@ int main(int argc, char** argv) {
     world.Add(std::make_shared<Sphere>(point3( 1.0,     0.0, -1.0),   0.5, material_right));
 
     // Camera
-    Camera camera(image_width, image_height);
+    CameraDesc camera_desc;
+    camera_desc.width = image_width;
+    camera_desc.height = image_height;
+    camera_desc.fovy = 20;
+    camera_desc.position = { -2, 2, 1 };
+    camera_desc.lookat = { 0, 0, -1 };
+    camera_desc.world_up = { 0, 1, 0 };
+    Camera camera(camera_desc);
 
     // Renderer
     main_timer.Start();
