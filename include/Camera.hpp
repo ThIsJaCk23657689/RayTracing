@@ -12,6 +12,9 @@ struct CameraDesc {
     vec3 position = { 0, 0, 1 };
     vec3 lookat = { 0, 0, 0 };
     vec3 world_up = { 0, 1, 0 };
+
+    double defocus_angle = 0;
+    double focus_distance = 10; // Distance from camera position to plane of perfect focus
 };
 
 struct Camera {
@@ -22,6 +25,7 @@ public:
 
 private:
     vec3 GetRandomOffset() const;
+    vec3 DefocusDiskSample() const;
 
     point3 m_center;	        // camera center
 
@@ -30,6 +34,10 @@ private:
     vec3 m_pixel_delta_v;       // offset to pixel below 
 
     vec3 u, v, w;               // Camera frame basis vectors
+    
+    double m_defocus_angle;     // Variation angle of rays through each pixel
+    vec3 m_defocus_disk_u;      // Defocus disk horizontal radius;
+    vec3 m_defocus_disk_v;      // Defocus disk vertical radius;
 
 };
 #endif
