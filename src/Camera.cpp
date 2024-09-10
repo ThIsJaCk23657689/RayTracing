@@ -46,7 +46,7 @@ Ray Camera::GetRay(int i, int j) const {
                         + ((j + offset.y) * m_pixel_delta_v);
 
     auto ray_origin = (m_defocus_angle <= 0) ? m_center : DefocusDiskSample() ;
-    auto ray_direction = pixel_sample - m_center;
+    auto ray_direction = pixel_sample - ray_origin;
 
     return Ray(ray_origin, ray_direction);
 }

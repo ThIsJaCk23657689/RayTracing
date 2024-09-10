@@ -53,7 +53,7 @@ int main(int argc, char** argv) {
     camera_desc.position = { -2, 2, 1 };
     camera_desc.lookat = { 0, 0, -1 };
     camera_desc.world_up = { 0, 1, 0 };
-    camera_desc.defocus_angle = 0.6;
+    camera_desc.defocus_angle = 10.0;
     camera_desc.focus_distance = 3.4;
     Camera camera(camera_desc);
 
