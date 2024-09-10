@@ -93,25 +93,21 @@ inline vec3 clamp(const vec3& v, const double& min, const double& max) {
     return {x, y, z};
 }
 
-inline vec3 random_in_unit_sphere() {
-    while(true) {
+inline vec3 random_unit_vector() {
+    while (true) {
         auto p = vec3::random(-1, 1);
-        if (p.length_squared() >= 1) continue;
-        return p;
+        auto length_squared = p.length_squared();
+        if (1e-160 < length_squared && length_squared <= 1) return p / sqrt( length_squared );
     }
 }
 
-inline vec3 random_unit_vector() {
-    return normalize(random_in_unit_sphere());
-}
-
-inline vec3 random_in_hemisphere(const vec3& normal) {
-    vec3 in_unit_sphere = random_in_unit_sphere();
-    if (dot(in_unit_sphere, normal) > 0.0) {
+inline vec3 random_on_hemisphere(const vec3& normal) {
+    vec3 on_unit_sphere = random_unit_vector();
+    if (dot(on_unit_sphere, normal) > 0.0) {
         // In the same hemisphere as the normal
-        return in_unit_sphere;
+        return on_unit_sphere;
     } else {
-        return -in_unit_sphere;
+        return -on_unit_sphere;
     }
 }
 
