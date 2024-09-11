@@ -21,7 +21,10 @@ $ cmake --build build/Debug
 ![Current Result](assets/images/result.bmp)
 
 #### Support multi-threading.
-Generate a 1920x1080 image with 500 samples per pixel and a depth of 50. It takes about 2 hours and 3 minutes with 16 threads (Intel Core i7-10700).
+Generate a 1920x1080 image with 500 samples per pixel and a depth of 50. 
+It takes about 30 minutes with 16 threads on x64-release (2 hours and 3 minutes with 16 threads on x64-debug)
+
+CPU: Intel Core i7-10700
 
 ---
 Author: ThIsJaCk
