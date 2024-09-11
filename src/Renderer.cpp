@@ -25,14 +25,14 @@ void Renderer::Render(Image& image, const RenderDesc& render_desc) {
     // int num_threads = 1;
 
     // 算出一個 thread 要處理幾行 row
-    int rows_per_thread = std::ceil(static_cast<float>(image.m_height) / num_threads); 
+    auto rows_per_thread = (int)std::ceil(static_cast<float>(image.m_height) / num_threads); 
    
     // 輸出 status
     Console::Print("\nThreads: %d", num_threads);
     Console::Print("Rows per thread: %d", rows_per_thread);
 
     std::vector<std::thread> threads;
-    for (size_t t = 0; t < num_threads; t++) {
+    for (int32_t t = 0; t < num_threads; t++) {
         int32_t start_row = t * rows_per_thread;
         int32_t end_row = std::min(start_row + rows_per_thread, (int)image.m_height);
         Interval<int32_t> row_interval(start_row, end_row);
@@ -60,11 +60,11 @@ void Renderer::RenderRows(Image& image, const RenderDesc& render_desc, Interval<
 }
 
 void Renderer::RenderRow(Image& image, const RenderDesc& render_desc, int32_t current_row) {
-    for (int i = 0; i < image.m_width; i++) {
+    for (unsigned int i = 0; i < image.m_width; i++) {
         color pixel_color(0);
 
         // for each sample per pixel
-        for (int s = 0; s < render_desc.samples_per_pixel; s++) {
+        for (unsigned int s = 0; s < render_desc.samples_per_pixel; s++) {
             Ray r = render_desc.camera.GetRay(i, current_row);
             pixel_color += RayColor(r, render_desc.world, render_desc.depth);
         }

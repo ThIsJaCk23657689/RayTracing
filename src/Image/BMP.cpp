@@ -116,9 +116,9 @@ void BMP::Export(const std::string& path) {
     output.write(reinterpret_cast<const char*>(info_header), info_header_size);
 
     // Image Data
-    for (int y = 0; y < m_height; y++) {
+    for (unsigned int y = 0; y < m_height; y++) {
         std::cerr << "\rProgress: " << y << " " << std::flush;
-        for (int x = 0; x < m_width; x++) {
+        for (unsigned int x = 0; x < m_width; x++) {
             auto pixel_color = GetColor(x, y);
             unsigned char r = static_cast<unsigned char>(pixel_color.r * 256);
             unsigned char g = static_cast<unsigned char>(pixel_color.g * 256);

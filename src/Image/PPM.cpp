@@ -19,7 +19,7 @@ void PPM::Export(const std::string& path) {
 
     for (int y = m_height - 1; y >= 0; y--) {
         std::cerr << "\rProgress: " << m_height - 1 - y << " " << std::flush;
-        for (int x = 0; x < m_width; x++) {
+        for (unsigned int x = 0; x < m_width; x++) {
             int r = static_cast<int>(GetColor(x, y).r * 256.0f);
             int g = static_cast<int>(GetColor(x, y).g * 256.0f);
             int b = static_cast<int>(GetColor(x, y).b * 256.0f);
